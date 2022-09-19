@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
-//&w=majority` retiré de l'addresse car ça fasait bug le signin, l'user etait bien ajouté à la DB mais affichage erreur 400. 
+//&w=majority` retiré de l'addresse car ça faisait bug le signin, l'user etait bien ajouté à la DB mais affichage erreur 400. 
 mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_CLUSTER_NAME}.mongodb.net/${process.env.MONGODB_DATABASE_NAME}?retryWrites=true`, 
 {useNewUrlParser: true,
   useUnifiedTopology: true })
