@@ -11,8 +11,8 @@ mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGOD
 {useNewUrlParser: true,
   useUnifiedTopology: true })
 .then(() => console.log('Connexion à MongoDB réussie !'))
-.catch((error) => console.log(error));
-//.catch(() => console.log('Connexion à MongoDB échouée !'));
+//.catch((error) => console.log(error));
+.catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
 const path = require('path');
@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-//app.use('/api/sauces', sauceRoutes);
+app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
