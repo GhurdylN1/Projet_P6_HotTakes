@@ -22,6 +22,19 @@ exports.createSauce = (req, res, next) => {
 // modification des sauces
 
   exports.modifySauce = (req, res, next) => {
+    if (req.file) {
+      Sauce.findOne({_id: req.params.id})
+      .then((sauce) => {
+        // récupération de l'image a supprimer si modification
+        const filename = sauce.imageUrl.split('/images/')[1];
+        // suppression de l'ancienne image
+        fs.unlink(`images/${filename}`, (error) => {
+          if(error) throw error;
+        })
+      })
+      .catch((error) => res.status(404).json({ error }))
+    }
+    // mise a jour de la DB: utilisation d'un opérateur ternaire : qui permet de simplifier une condition if else
     const sauceObject = req.file ? {
       ...JSON.parse(sanitize(req.body.sauce)),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
