@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config('../.env');
+const sanitize = require('mongo-sanitize');
 
 const User = require('../models/User');
 
@@ -19,7 +20,7 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-    User.findOne({email: req.body.email})
+    User.findOne({email: sanitize(req.body.email)}) //exemple sanitize 
         .then(user => {
             if (user === null) {
                 return res.status(401).json({message: 'Paire identifiant/mot de passe incorrect'});
