@@ -17,4 +17,21 @@ const storage = multer.diskStorage({
     }
 });
 
-module.exports = multer({ storage }).single('image');
+// On veut un filtre qui n'enregistre pas dans la DB si le format de l'image n'est pas valide ou un autre fichier comme un *.exe par exemple
+const uploadImg = multer({
+    storage: storage,
+    fileFilter(req, file, callback) {
+        // ne pas accepter les mimetype qui ne sont pas des images.
+        //if(file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg' || file.mimetype == 'image/png'){
+        if (file.mimetype in MIME_TYPES) {    
+            callback(null, true)
+        }else{
+            return callback(new Error('Format de fichier non autorisé'))
+        }
+    },
+    // on limite la taille du fichier image à 500ko
+    limits: {
+        fileSize: 500000
+    },
+})
+module.exports = uploadImg.single('image');
