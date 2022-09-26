@@ -17,6 +17,7 @@ You have to check this file ".env.example" in the backend directory and follow t
 # Backend
 
 From backend directory create a new directory "images"
+
 And from backend directory run "npm install" in order to install all dependencies
 
 Then run "nodemon server"
