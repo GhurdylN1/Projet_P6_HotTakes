@@ -23,11 +23,13 @@ exports.login = (req, res, next) => {
     User.findOne({email: sanitize(req.body.email)}) //exemple sanitize 
         .then(user => {
             if (user === null) {
+                res.statusMessage = "Identifiants incorrects"
                 return res.status(401).json({message: 'Paire identifiant/mot de passe incorrect'});
             }
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
+                        res.statusMessage = "Identifiants incorrects"
                         return res.status(401).json({message: 'Paire identifiant/mot de passe incorrect'});
                     }
                     res.status(200).json({
