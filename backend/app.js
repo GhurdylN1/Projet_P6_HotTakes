@@ -1,6 +1,7 @@
 const dotenv = require('dotenv').config('../.env');
 
 const express = require('express');
+const helmet = require("helmet");
 const mongoose = require('mongoose');
 
 const sauceRoutes = require('./routes/sauce');
@@ -16,6 +17,8 @@ mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGOD
 
 const app = express();
 const path = require('path');
+
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
