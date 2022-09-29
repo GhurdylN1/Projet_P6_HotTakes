@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); 
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config('../.env');
 const sanitize = require('mongo-sanitize');

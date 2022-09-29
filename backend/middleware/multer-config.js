@@ -22,7 +22,6 @@ const uploadImg = multer({
     storage: storage,
     fileFilter(req, file, callback) {
         // ne pas accepter les mimetype qui ne sont pas des images.
-        //if(file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg' || file.mimetype == 'image/png'){
         if (file.mimetype in MIME_TYPES) {    
             callback(null, true)
         }else{
