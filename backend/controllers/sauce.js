@@ -1,5 +1,5 @@
 const Sauce = require('../models/Sauces');
-const fs = require('fs');
+const fs = require('fs'); // filesystem permet d'acceder aux fichiers (utilisé ici pour gérer le remplacement et suppression des images)
 const sanitize = require('mongo-sanitize'); // se proteger des injections diverses
 
 // création des sauces
@@ -126,6 +126,7 @@ exports.voteSauce = (req, res, next) => {
     // Si l'utilisateur veut retirer son like ou dislike
     else if (req.body.like === 0) {
       if (voteLike) {
+         //on retire un like et l'id de l'utilisateur dans la liste des Likers , on va utiliser $inc et $pull ici.
           Sauce.updateOne({ _id: req.params.id }, {
               $inc: { likes: -1 },
               $pull: { usersLiked: req.body.userId, }
